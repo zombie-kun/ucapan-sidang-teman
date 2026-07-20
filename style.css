@@ -296,8 +296,29 @@ main section{ position: relative; padding: 110px 6vw; }
   columns: 4 260px; column-gap: 18px; max-width: 1200px; margin: 0 auto;
 }
 .gallery-single{
-  display: flex; justify-content: center; max-width: 700px; margin: 0 auto;
+  display: flex; justify-content: center; max-width: 700px; margin: 0 auto; position: relative;
 }
+
+/* Chibi Icons */
+.chibi-icon {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  z-index: 20;
+  pointer-events: none;
+  animation: chibiWiggle 1.5s ease-in-out infinite alternate;
+}
+.chibi-tl { top: -35px; left: -35px; animation-delay: 0s; transform-origin: bottom right; }
+.chibi-tr { top: -35px; right: -35px; animation-delay: 0.3s; transform-origin: bottom left; }
+.chibi-bl { bottom: -35px; left: -35px; animation-delay: 0.6s; transform-origin: top right; }
+.chibi-br { bottom: -35px; right: -35px; animation-delay: 0.9s; transform-origin: top left; }
+
+@keyframes chibiWiggle {
+  0% { transform: rotate(-10deg) scale(1); }
+  100% { transform: rotate(10deg) scale(1.1); }
+}
+
 .gallery-single .gallery-item{
   width: 100%; margin: 0;
 }
