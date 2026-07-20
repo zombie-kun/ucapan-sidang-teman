@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Untuk Nabila Yudhitia Azzahra — Sebuah Surat Selamat Sidang</title>
+<meta name="description" content="Sebuah surat digital spesial untuk merayakan kelulusan sidang skripsi.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Poppins:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- AOS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= LOADING SCREEN ================= -->
+<div id="loading-screen" aria-hidden="true">
+  <div class="loading-inner">
+    <svg class="loading-seal" viewBox="0 0 100 100" width="56" height="56">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M30 52 L45 65 L72 35" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="loading-check"/>
+    </svg>
+    <p class="loading-text">Preparing Your Special Letter&hellip;</p>
+    <div class="loading-bar"><span id="loading-progress"></span></div>
+  </div>
+</div>
+
+<!-- Cursor glow (desktop) -->
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<!-- Ambient sakura / particle canvas layers -->
+<canvas id="sakura-canvas" aria-hidden="true"></canvas>
+<canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+<!-- Music control -->
+<button id="music-toggle" aria-label="Putar musik" aria-pressed="false">
+  <svg viewBox="0 0 24 24" class="icon-note"><path fill="currentColor" d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="currentColor" stroke="none"/><circle cx="18" cy="16" r="3" fill="currentColor" stroke="none"/></svg>
+  <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+<audio id="bg-music" loop preload="none">
+  <source src="assets/music/background-music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Scroll progress indicator -->
+<div id="scroll-indicator"><span></span></div>
+
+<main id="main-content">
+
+  <!-- ================= HERO / ENVELOPE SCENE ================= -->
+  <section id="hero" aria-label="Pembuka surat">
+    <div class="hero-bg">
+      <div class="sky-gradient"></div>
+      <div class="hero-glow hero-glow--1"></div>
+      <div class="hero-glow hero-glow--2"></div>
+      <div class="noise-overlay"></div>
+    </div>
+
+    <!-- ENVELOPE STAGE -->
+    <div id="envelope-stage" class="stage">
+      <div class="envelope-wrap">
+        <div id="envelope" class="envelope">
+          <div class="envelope-shadow"></div>
+          <div class="envelope-back"></div>
+          <div class="envelope-letter-peek"></div>
+          <div class="envelope-flap"></div>
+          <div class="envelope-seal">
+            <svg viewBox="0 0 60 60" width="34" height="34">
+              <circle cx="30" cy="30" r="28" fill="none" stroke="currentColor" stroke-width="1.2"/>
+              <text x="30" y="38" text-anchor="middle" font-family="Great Vibes, cursive" font-size="30" fill="currentColor">S</text>
+            </svg>
+          </div>
+          <div class="envelope-front"></div>
+        </div>
+      </div>
+      <p class="envelope-caption" data-aos="fade-up" data-aos-delay="300">Sebuah surat spesial menunggumu.</p>
+      <button id="open-letter-btn" class="btn btn--primary" data-aos="fade-up" data-aos-delay="500">
+        <span>Buka Surat</span>
+      </button>
+    </div>
+
+    <!-- LETTER STAGE -->
+    <div id="letter-stage" class="stage stage--hidden">
+      <div class="letter-paper">
+        <div class="letter-texture"></div>
+        <div class="letter-inner">
+          <p class="letter-kop">Untuk seseorang yang telah berjuang,</p>
+          <h2 class="letter-name">Nabila Yudhitia Azzahra</h2>
+          <div id="letter-body" class="letter-body">Selamat ya atas kelulusan sidang skripsimu! Akhirnya semua perjuangan, begadang, dan revisi terbayar lunas dengan bertambahnya gelar di belakang namamu. Aku sangat bangga padamu.
+
+Terima kasih banyak sudah mau menjadi temanku selama masa kuliah ini. Menghadapi tugas-tugas dan hiruk pikuk perkuliahan jadi terasa jauh lebih ringan dan menyenangkan karena ada kamu.
+
+Aku juga mau minta maaf ya, kalau selama kita berteman, ada salah kata atau perbuatan yang mungkin kurang berkenan di hatimu. Semoga ke depannya ilmu yang kamu dapatkan bisa bermanfaat, jalanmu dimudahkan, dan selalu diberikan kebahagiaan serta kesuksesan dalam setiap impian barumu. Sekali lagi, selamat!</div>
+          <p class="letter-sign">Dengan penuh bangga,<br><span>Satya</span></p>
+        </div>
+      </div>
+      <button id="continue-btn" class="scroll-hint" aria-label="Lanjutkan ke kenangan">
+        <span>Gulir untuk melanjutkan</span>
+        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section id="gallery" aria-label="Galeri kenangan">
+    <div class="section-head" data-aos="fade-up">
+      <span class="eyebrow">Kenangan</span>
+      <h2 class="section-title">Galeri Kenangan</h2>
+      <p class="section-sub">Setiap potret adalah babak kecil dari perjalanan panjang ini.</p>
+    </div>
+
+    <!-- Add photos here: duplicate a .gallery-item and update the img src/alt.
+         Supports as many photos as you like — the masonry grid reflows automatically. -->
+    <div id="gallery-grid" class="gallery-single">
+      <figure class="gallery-item" data-aos="fade-up">
+        <img src="assets/images/nabila_lulus.jpeg" alt="Kenangan Nabila" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="lightbox-close" class="lightbox-close" aria-label="Tutup">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- ================= TIMELINE ================= -->
+  <section id="timeline" aria-label="Perjalanan">
+    <div class="section-head" data-aos="fade-up">
+      <span class="eyebrow">Perjalanan</span>
+      <h2 class="section-title">Setiap Langkah, Setiap Cerita</h2>
+    </div>
+
+    <ol class="timeline-list">
+      <li class="timeline-item" data-aos="fade-up">
+        <span class="timeline-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M12 21s-7-6.2-9.3-10.1C1 7.6 2.8 4 6.3 4c2 0 3.4 1 5.7 3.4C14.3 5 15.7 4 17.7 4 21.2 4 23 7.6 21.3 10.9 19 14.8 12 21 12 21z"/></svg>
+        </span>
+        <div class="timeline-content">
+          <h3>Awal Perkenalan</h3>
+          <p>Dua orang asing yang belum tahu akan menjadi seberapa dekat.</p>
+        </div>
+      </li>
+      <li class="timeline-item" data-aos="fade-up">
+        <span class="timeline-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M3 9l9-5 9 5-9-5-9-5zm4 3v5c0 1.5 2.5 3 5 3s5-1.5 5-3v-5"/></svg>
+        </span>
+        <div class="timeline-content">
+          <h3>Masa Kuliah</h3>
+          <p>Kelas, tugas, dan tawa yang mengisi hari-hari biasa.</p>
+        </div>
+      </li>
+      <li class="timeline-item" data-aos="fade-up">
+        <span class="timeline-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+        </span>
+        <div class="timeline-content">
+          <h3>Begadang Skripsi</h3>
+          <p>Kopi yang tak terhitung, dan layar laptop yang menyala hingga subuh.</p>
+        </div>
+      </li>
+      <li class="timeline-item" data-aos="fade-up">
+        <span class="timeline-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path fill="none" stroke="currentColor" stroke-width="1.5" d="M14 4v5h5"/></svg>
+        </span>
+        <div class="timeline-content">
+          <h3>Revisi</h3>
+          <p>Coretan merah yang terasa berat, namun membentukmu jadi lebih kuat.</p>
+        </div>
+      </li>
+      <li class="timeline-item" data-aos="fade-up">
+        <span class="timeline-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>
+        </span>
+        <div class="timeline-content">
+          <h3>Sidang</h3>
+          <p>Detik-detik menegangkan yang akhirnya terbayar lunas.</p>
+        </div>
+      </li>
+      <li class="timeline-item" data-aos="fade-up">
+        <span class="timeline-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M6 3h12l-1.5 7L18 21H6l1.5-11L6 3z"/></svg>
+        </span>
+        <div class="timeline-content">
+          <h3>Lulus</h3>
+          <p>Sebuah babak resmi ditutup dengan senyum dan haru.</p>
+        </div>
+      </li>
+      <li class="timeline-item" data-aos="fade-up">
+        <span class="timeline-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2zM9 21h6"/></svg>
+        </span>
+        <div class="timeline-content">
+          <h3>Mimpi Baru</h3>
+          <p>Halaman kosong yang menanti untuk ditulisi cerita-cerita berikutnya.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+  
+  <!-- ================= QUOTES ================= -->
+  <section id="quotes" aria-label="Kutipan">
+    <div class="quote-track">
+      <blockquote class="quote-item" data-aos="fade" data-aos-duration="1200">
+        <p>&ldquo;Every ending is the beginning of something greater.&rdquo;</p>
+      </blockquote>
+      <blockquote class="quote-item" data-aos="fade" data-aos-duration="1200">
+        <p>&ldquo;Your journey has just begun.&rdquo;</p>
+      </blockquote>
+      <blockquote class="quote-item" data-aos="fade" data-aos-duration="1200">
+        <p>&ldquo;Dreams belong to those who never stop trying.&rdquo;</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING ================= -->
+  <section id="closing" aria-label="Penutup">
+    <div class="closing-bg">
+      <div class="sunset-gradient"></div>
+      <div class="noise-overlay"></div>
+    </div>
+    <div class="closing-content" data-aos="fade-up">
+      <h2 class="closing-title">The Journey Doesn&rsquo;t End Here.</h2>
+      <p class="closing-text">Semoga setiap langkahmu dipenuhi kebahagiaan dan keberanian untuk mengejar mimpi berikutnya.</p>
+      <button id="thanks-btn" class="btn btn--primary">
+        <span>Terima Kasih Sudah Membaca</span>
+      </button>
+    </div>
+    <footer class="site-footer">
+      <p>Dibuat dengan &#10084; untuk merayakan kelulusanmu.</p>
+    </footer>
+  </section>
+
+</main>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- AOS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script src="script.js"></script>
+</body>
+</html>
